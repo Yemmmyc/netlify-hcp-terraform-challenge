@@ -45,3 +45,9 @@ resource "netlify_environment_variable" "example2" {
 
 # Environment variable 3 (build)
 resource "netlify_environment_variable" "example3" {
+  site_id = data.netlify_site.example.id
+  values  = {
+    FEATURE_FLAG = "true"
+  }
+  scopes = ["build"]
+}  # <-- Make sure this closing brace exists
