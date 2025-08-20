@@ -1,28 +1,12 @@
-terraform {
-  cloud {
-    organization = "Yemmmyc"
-    workspaces {
-      name = "netlify-hcp-terraform-challenge"
-    }
-  }
-
-  required_providers {
-    netlify = {
-      source  = "netlify/netlify"
-      version = ">=0.2.0"
-    }
-  }
+# Read an existing Netlify site
+data "netlify_site" "existing" {
+  id = var.netlify_site_id
 }
 
-provider "netlify" {
-  token = var.netlify_token
+# Example: GitHub repository resource
+resource "github_repository" "example" {
+  name        = "my-github-repo"
+  description = "Example repository linked to Netlify site"
+  visibility  = "public"
 }
 
-# Example: get an existing site by site_id
-data "netlify_site" "my_site" {
-  site_id = var.netlify_site_id
-}
-
-output "netlify_site_url" {
-  value = data.netlify_site.my_site.ssl_url
-}

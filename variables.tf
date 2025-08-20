@@ -5,6 +5,17 @@ variable "netlify_token" {
 }
 
 variable "netlify_site_id" {
-  description = "Existing Netlify site ID to read"
+  description = "ID of the existing Netlify site"
+  type        = string
+}
+
+variable "github_token" {
+  description = "GitHub personal access token"
+  type        = string
+  sensitive   = true
+}
+
+variable "github_owner" {
+  description = "GitHub username or organization"
   type        = string
 }
