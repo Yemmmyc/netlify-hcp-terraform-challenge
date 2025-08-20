@@ -1,17 +1,28 @@
 terraform {
-  required_version = ">= 1.5.0"
-  required_providers {
-    netlify = {
-      source  = "netlify/netlify"
-      version = "~> 0.2"
-    }
-  }
+cloud {
+organization = "netlify-org"
+workspaces {
+name = "netlify-site"
 }
+}
+required_providers {
+netlify = {
+source = "netlify/netlify"
+version = "~> 0.2"
+}
+}
+}
+
 
 provider "netlify" {
-  # Authentication handled via environment variables or Netlify CLI login
+# You’ll need to provide a Netlify personal access token
+token = nfp_K8rhc4m1Q2KXjvA7gpii6SosiVRFk9rHf201
 }
 
-module "site" {
-  source = "./modules/netlify_site"
+
+variable "netlify_token" {}
+
+
+resource "netlify_site" "example" {
+name = "netlify-terraform-starter"
 }
