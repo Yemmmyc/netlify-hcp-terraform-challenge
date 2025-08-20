@@ -1,8 +1,8 @@
 terraform {
   required_providers {
     netlify = {
-      source  = "netlify/netlify"   # Correct provider source
-      version = "~> 0.2"            # Latest compatible version
+      source  = "netlify/netlify"
+      version = "~> 0.2"
     }
   }
 
@@ -22,27 +22,26 @@ provider "netlify" {
 
 # Reference your existing Netlify site
 data "netlify_site" "example" {
-  name = "netlify-terraform-starter"  # Replace with your exact site name
+  name = "clinquant-tanuki-feea31"
 }
 
-# Example environment variables
+# Environment variable 1 (build)
 resource "netlify_environment_variable" "example1" {
-  site_id = "b522540e-35de-4167-839b-1b8e921e75c9"  # Your site ID
-  key     = "TEST_VARIABLE"
-  value   = "HelloWorld"
-  scope   = "build"
+  site_id = data.netlify_site.example.id
+  values  = {
+    TEST_VARIABLE = "HelloWorld"
+  }
+  scopes = ["build"]
 }
 
+# Environment variable 2 (runtime)
 resource "netlify_environment_variable" "example2" {
-  site_id = "b522540e-35de-4167-839b-1b8e921e75c9"
-  key     = "API_ENDPOINT"
-  value   = "https://api.example.com"
-  scope   = "runtime"
+  site_id = data.netlify_site.example.id
+  values  = {
+    API_ENDPOINT = "https://api.example.com"
+  }
+  scopes = ["runtime"]
 }
 
+# Environment variable 3 (build)
 resource "netlify_environment_variable" "example3" {
-  site_id = "b522540e-35de-4167-839b-1b8e921e75c9"
-  key     = "FEATURE_FLAG"
-  value   = "true"
-  scope   = "build"
-}
