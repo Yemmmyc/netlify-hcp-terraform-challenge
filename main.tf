@@ -28,26 +28,20 @@ data "netlify_site" "example" {
 # Environment variable 1 (build)
 resource "netlify_environment_variable" "example1" {
   site_id = data.netlify_site.example.id
-  values  = {
-    TEST_VARIABLE = "HelloWorld"
-  }
-  scopes = ["build"]
+  key     = "TEST_VARIABLE"
+  value   = "HelloWorld"
 }
 
 # Environment variable 2 (runtime)
 resource "netlify_environment_variable" "example2" {
   site_id = data.netlify_site.example.id
-  values  = {
-    API_ENDPOINT = "https://api.example.com"
-  }
-  scopes = ["runtime"]
+  key     = "API_ENDPOINT"
+  value   = "https://api.example.com"
 }
 
 # Environment variable 3 (build)
 resource "netlify_environment_variable" "example3" {
   site_id = data.netlify_site.example.id
-  values  = {
-    FEATURE_FLAG = "true"
-  }
-  scopes = ["build"]
-}  # <-- Make sure this closing brace exists
+  key     = "FEATURE_FLAG"
+  value   = "true"
+}
